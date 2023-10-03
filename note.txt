@@ -1,0 +1,3 @@
+1st npm install prisma --save-dev
+2nd npx prisma init --datasource-provider mysql
+3rd npx prisma migrate dev
