@@ -88,8 +88,14 @@ CREATE TABLE `Invoice_Products` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- AddForeignKey
-ALTER TABLE `Customers` ADD CONSTRAINT `Customers_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+-- CreateTable
+CREATE TABLE `_CustomersToUsers` (
+    `A` BIGINT UNSIGNED NOT NULL,
+    `B` BIGINT UNSIGNED NOT NULL,
+
+    UNIQUE INDEX `_CustomersToUsers_AB_unique`(`A`, `B`),
+    INDEX `_CustomersToUsers_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `Categories` ADD CONSTRAINT `Categories_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -114,3 +120,9 @@ ALTER TABLE `Invoice_Products` ADD CONSTRAINT `Invoice_Products_user_id_fkey` FO
 
 -- AddForeignKey
 ALTER TABLE `Invoice_Products` ADD CONSTRAINT `Invoice_Products_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `Products`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_CustomersToUsers` ADD CONSTRAINT `_CustomersToUsers_A_fkey` FOREIGN KEY (`A`) REFERENCES `Customers`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_CustomersToUsers` ADD CONSTRAINT `_CustomersToUsers_B_fkey` FOREIGN KEY (`B`) REFERENCES `Users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
